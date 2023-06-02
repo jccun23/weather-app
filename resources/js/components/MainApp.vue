@@ -5,7 +5,7 @@
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" v-model="location" id="search-input" placeholder="Enter location">
                     <div class="input-group-append">
-                        <span class="input-group-text search-arrow"><i class="fa fa-location-arrow"></i></span>
+                        <span class="input-group-text search-arrow"><i class="fa-solid fa-location-dot"></i></span>
                     </div>
                     <button type="button" class="btn btn-primary" id="search" v-on:click="getLocation">Search</button>
                 </div>
@@ -22,12 +22,12 @@
                         </div>
                     </div>
             </div>
-            <div class="form-group" v-if="fiveDayForecast.length !== 0">
+            <div class="form-group mt-2" v-if="fiveDayForecast.length !== 0">
                 <div class="row">
-                    <div class="col-lg" v-for="(forecast, index) in fiveDayForecast">
+                    <div class="col-lg mb-2" v-for="(forecast, index) in fiveDayForecast">
                         <div class="card shadow-0 border">
                             <div class="card-body p-4">
-                                <p class="mb-2">{{ formatDate(index).toDateString() }}</p>
+                                <p class="mb-2" style="color: white">{{ formatDate(index).toDateString() }}</p>
                                 <div class="scroll-body">
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item" v-for="date in forecast"><div>
@@ -49,6 +49,7 @@
 </template>
 <script>
 import axios from "axios";
+import Swal from 'sweetalert2'
 export default {
     data() {
         return {
@@ -70,6 +71,13 @@ export default {
                 this.longitude = aData.data.longitude
                 this.latitude = aData.data.latitude
                 this.getWeather()
+            }).catch(function(error) {
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Error occurred. Please try again!',
+                    icon: 'error',
+                    confirmButtonText: 'Ok'
+                })
             })
         },
         /*
@@ -81,6 +89,13 @@ export default {
                 this.currentWeather = response.data.data.current;
                 let aFiveDayForecast = response.data.data.forecast;
                 this.fiveDayForecast = this.groupItems(aFiveDayForecast, 'dt_txt');
+            }).catch(function (error) {
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Error occurred. Please try again!',
+                    icon: 'error',
+                    confirmButtonText: 'Ok'
+                })
             })
         },
         /*

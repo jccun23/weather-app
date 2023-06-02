@@ -27,7 +27,12 @@ class OpenWeatherApiLibrary
         return $this->successResponse($aResponseData['list']);
     }
 
-    public function getCurrentWeather($aWeatherParameters)
+    /**
+     * Retrieve current weather data of selected location
+     * @param $aWeatherParameters
+     * @return array
+     */
+    public function getCurrentWeather($aWeatherParameters): array
     {
         $aQueryParameter = http_build_query($aWeatherParameters);
         $oResponse = Http::withHeaders($this->authHeaders())->get(env('OPENWEATHER_CURRENT_API_URL') . '?' . $aQueryParameter);

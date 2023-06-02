@@ -11,12 +11,14 @@ class Controller extends BaseController
     use AuthorizesRequests, ValidatesRequests;
 
     /**
-     * Request variable
+     * Request
+     * @var
      */
     protected $oRequest;
 
     /**
-     * Service Variable
+     * Service
+     * @var
      */
     protected $oService;
 }

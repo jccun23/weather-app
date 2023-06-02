@@ -12,33 +12,51 @@
             </div>
             <div class="form-group" v-if="currentWeather.length !== 0">
                     <div class="card shadow-0 border">
-                        <div class="card-body p-4">
+                        <div class="card-body p-4 current-weather">
                             <img v-bind:src="'https://openweathermap.org/img/wn/'+ currentWeather.weather[0].icon +'@2x.png'" width="100" height="100">
                             <p class="mb-0">{{ currentWeather.weather[0].description }}</p>
                             <h4 class="mb-1 sfw-normal">{{ currentWeather.name }}, {{ currentWeather.sys.country }}</h4>
                             <p class="mb-2">Current temperature: <strong>{{ currentWeather.main.temp }}°C</strong></p>
                             <p>Feels like: <strong>{{ currentWeather.main.feels_like }}°C</strong></p>
                             <p>Max: <strong>{{ currentWeather.main.temp_max }}°C</strong>, Min: <strong>{{ currentWeather.main.temp_min }}°C</strong></p>
-                            <div class="d-flex flex-row align-items-center">
-                                <p class="mb-0">Humidity</p>
-                                <img src="/humidity.png" alt="Image" width="50" height="50"/>
+                        </div>
+                    </div>
+            </div>
+            <div class="form-group" v-if="fiveDayForecast.length !== 0">
+                <div class="row">
+                    <div class="col-lg" v-for="(forecast, index) in fiveDayForecast">
+                        <div class="card shadow-0 border">
+                            <div class="card-body p-4">
+                                <p class="mb-2">{{ formatDate(index).toDateString() }}</p>
+                                <div class="scroll-body">
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item" v-for="date in forecast"><div>
+                                            <p>{{ formatToTime(date.dt_txt)}}</p>
+                                            <img v-bind:src="'https://openweathermap.org/img/wn/'+ date.weather[0].icon +'@2x.png'" width="50" height="50">
+                                            <p class="mb-2">Temperature: <strong>{{ date.main.temp }}°C</strong></p>
+                                            <p>Feels like: <strong>{{ currentWeather.main.feels_like }}°C</strong></p>
+                                        </div></li>
+                                    </ul>
+                                </div>
+
                             </div>
                         </div>
                     </div>
+                </div>
             </div>
         </main>
     </div>
 </template>
 <script>
 import axios from "axios";
-
 export default {
     data() {
         return {
             location: '',
             longitude: '',
             latitude: '',
-            currentWeather: []
+            currentWeather: [],
+            fiveDayForecast: []
         }
     },
     methods: {
@@ -60,12 +78,38 @@ export default {
         getWeather() {
             axios.get('/weather/forecast?latitude=' + this.latitude + '&longitude=' + this.longitude).
             then(response => {
-                this.currentWeather = response.data.data.current
+                this.currentWeather = response.data.data.current;
+                let aFiveDayForecast = response.data.data.forecast;
+                this.fiveDayForecast = this.groupItems(aFiveDayForecast, 'dt_txt');
             })
+        },
+        /*
+        * Group forecast by date
+        * */
+        groupItems(array, property) {
+            return array.reduce(function(groups, item) {
+                let name = item[property]
+                let date = new Date(name);
+                name = date.toLocaleDateString();
+                let group = groups[name] || (groups[name] = []);
+                group.push(item);
+                return groups;
+            }, { });
+        },
+        /*
+        * Format date
+        * */
+        formatDate(date) {
+            return new Date(date);
+        },
+        /*
+        *
+        * Format time
+        * */
+        formatToTime(date) {
+            let newDate = new Date(date).toLocaleTimeString();
+            return newDate.replace(':00:00', '');
         }
-    },
-    mounted() {
-
     }
 }
 </script>

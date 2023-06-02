@@ -65,6 +65,16 @@ export default {
         * Retrieve location coordinates
         * */
         getLocation() {
+            if (this.location === '') {
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Please enter a location',
+                    icon: 'error',
+                    confirmButtonText: 'Ok'
+                });
+                return;
+            }
+
             axios.get('/location/?near=' + this.location).
             then(response => {
                 let aData = response.data;

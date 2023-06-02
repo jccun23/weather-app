@@ -27,9 +27,10 @@ class WeatherController extends Controller
     }
 
     /**
-     * Handles the retrieving of the weather
+     * Handles the retrieving of weather data requests
+     * @return JsonResponse
      */
-    public function retrieveWeather()
+    public function retrieveWeather(): JsonResponse
     {
         $aRequest = $this->oRequest->all();
         $oValidationResult = Validator::make($aRequest, WeatherConstants::VALIDATION_RULES);
@@ -37,7 +38,7 @@ class WeatherController extends Controller
             return response()->json([
                 ResponseConstants::RESULTS => ResponseConstants::FAILED_RESULT,
                 ResponseConstants::MESSAGE => $oValidationResult->errors()
-            ], 400);
+            ], ResponseConstants::BAD_REQUEST_CODE);
         }
 
         $aResult = $this->oService->retrieveWeather($aRequest);

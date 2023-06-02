@@ -8,9 +8,13 @@ use App\Libraries\OpenWeatherApiLibrary;
 
 class WeatherService
 {
-    private $oApiLibrary;
     /**
-     *
+     * @var OpenWeatherApiLibrary
+     */
+    private OpenWeatherApiLibrary $oApiLibrary;
+
+    /**
+     * @param OpenWeatherApiLibrary $oApiLibrary
      */
     public function __construct(OpenWeatherApiLibrary $oApiLibrary)
     {
@@ -18,12 +22,11 @@ class WeatherService
     }
 
     /**
-     * retrieveWeather
-     *
+     * Handles the retrieving of the current and the 5 day weather forecast
      * @param array $aParameters
-     * @return array|null
+     * @return array
      */
-    public function retrieveWeather(array $aParameters)
+    public function retrieveWeather(array $aParameters): array
     {
         $aWeatherParameter = [
             WeatherConstants::LATITUDE  => $aParameters['latitude'],
@@ -43,7 +46,7 @@ class WeatherService
         }
 
         $aWeatherData = [
-            'current' => $aWeatherCurrentResponse[ResponseConstants::DATA],
+            'current'  => $aWeatherCurrentResponse[ResponseConstants::DATA],
             'forecast' => $aWeatherForecastResponse[ResponseConstants::DATA]
         ];
 

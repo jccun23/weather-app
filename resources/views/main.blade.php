@@ -11,6 +11,7 @@
     </head>
     <body>
         <div class="container-sm text-center">
+            <h2 class="app-title">Weather Checker</h2>
             <div id="app" class="pt-3"></div>
         </div>
     </body>

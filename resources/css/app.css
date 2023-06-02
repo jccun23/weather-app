@@ -8,6 +8,10 @@ body {
     background: url("white-cloud-blue-sky.jpg");
 }
 
+.app-title {
+    color: white;
+}
+
 .search-arrow {
     font-size: 1.5rem !important;
 }

@@ -67,17 +67,17 @@ export default {
         getLocation() {
             axios.get('/location/?near=' + this.location).
             then(response => {
-                let aData = response.data
-                this.longitude = aData.data.longitude
-                this.latitude = aData.data.latitude
-                this.getWeather()
+                let aData = response.data;
+                this.longitude = aData.data.longitude;
+                this.latitude = aData.data.latitude;
+                this.getWeather();
             }).catch(function(error) {
                 Swal.fire({
                     title: 'Error!',
                     text: 'Error occurred. Please try again!',
                     icon: 'error',
                     confirmButtonText: 'Ok'
-                })
+                });
             })
         },
         /*
@@ -95,7 +95,7 @@ export default {
                     text: 'Error occurred. Please try again!',
                     icon: 'error',
                     confirmButtonText: 'Ok'
-                })
+                });
             })
         },
         /*

@@ -9,4 +9,16 @@ use Illuminate\Routing\Controller as BaseController;
 class Controller extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
+
+    /**
+     * Request
+     * @var
+     */
+    protected $oRequest;
+
+    /**
+     * Service
+     * @var
+     */
+    protected $oService;
 }

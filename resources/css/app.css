@@ -5,7 +5,7 @@
 }
 
 body {
-    background: url("white-cloud-blue-sky.jpg");
+    background: url("../images/white-cloud-blue-sky.jpg");
 }
 
 .app-title {
@@ -38,7 +38,7 @@ body {
 }
 
 .scroll-body {
-    max-height: 220px;
+    max-height: 250px;
     overflow-y: scroll;
 }
 

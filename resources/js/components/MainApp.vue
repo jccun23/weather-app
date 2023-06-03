@@ -14,11 +14,12 @@
                     <div class="card shadow-0 border">
                         <div class="card-body p-4 current-weather">
                             <img v-bind:src="'https://openweathermap.org/img/wn/'+ currentWeather.weather[0].icon +'@2x.png'" width="100" height="100">
-                            <p class="mb-0">{{ currentWeather.weather[0].description }}</p>
+                            <p class="mb-0" style="font-weight: bold">{{ currentWeather.weather[0].description }}</p>
                             <h4 class="mb-1 sfw-normal">{{ currentWeather.name }}, {{ currentWeather.sys.country }}</h4>
                             <p class="mb-2">Current temperature: <strong>{{ currentWeather.main.temp }}°C</strong></p>
                             <p>Feels like: <strong>{{ currentWeather.main.feels_like }}°C</strong></p>
                             <p>Max: <strong>{{ currentWeather.main.temp_max }}°C</strong>, Min: <strong>{{ currentWeather.main.temp_min }}°C</strong></p>
+                            <p><span><i class="fa-solid fa-water"></i></span>Humidity: <strong>{{ currentWeather.main.humidity }}% </strong> - <span><i class="fa-solid fa-wind"></i></span>Wind: <strong>{{ currentWeather.wind.speed }}m/s</strong></p>
                         </div>
                     </div>
             </div>
@@ -31,10 +32,12 @@
                                 <div class="scroll-body">
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item" v-for="date in forecast"><div>
-                                            <p>{{ formatToTime(date.dt_txt)}}</p>
+                                            <p class="mb-0">{{ formatToTime(date.dt_txt)}}</p>
                                             <img v-bind:src="'https://openweathermap.org/img/wn/'+ date.weather[0].icon +'@2x.png'" width="50" height="50">
+                                            <p class="mb-0" style="font-weight: bold">{{ date.weather[0].description }}</p>
                                             <p class="mb-2">Temperature: <strong>{{ date.main.temp }}°C</strong></p>
-                                            <p>Feels like: <strong>{{ currentWeather.main.feels_like }}°C</strong></p>
+                                            <p>Feels like: <strong>{{ date.main.feels_like }}°C</strong></p>
+                                            <p>Max: <strong>{{ date.main.temp_max }}°C</strong>, Min: <strong>{{ date.main.temp_min }}°C</strong></p>
                                         </div></li>
                                     </ul>
                                 </div>

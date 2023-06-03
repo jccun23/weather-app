@@ -1,4 +1,5 @@
 
+![Image description](https://github.com/jccun23/weather-app/blob/master/resources/images/screenshot.jpeg)
 ## About Weather App
 A weather app that allows you to check the current weather of your chosen location and also the 5 day forecasts.
 ## Reason UI/UX and code implementation is the best
